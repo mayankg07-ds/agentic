@@ -1,0 +1,32 @@
+# --- Secrets ---
+.env
+*.env
+!.env.example
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# --- Node ---
+node_modules/
+dist/
+.vite/
+
+# --- Data (never commit corpus or vector DB) ---
+backend/chroma_data/
+ingestion/corpus/
+*.pdf
+
+# --- ML models cache ---
+.cache/
+models/
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

@@ -1,0 +1,26 @@
+# --- Core API ---
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.8
+pydantic-settings>=2.4
+python-dotenv>=1.0
+python-multipart>=0.0.9
+
+# --- Database ---
+motor>=3.5            # async MongoDB driver
+
+# --- Vector store ---
+chromadb>=0.5
+
+# --- LLM provider (NVIDIA NIM — OpenAI-compatible endpoint) ---
+openai>=1.40
+
+# --- Ingestion (Checkpoint 2) ---
+pymupdf>=1.24
+sentence-transformers>=3.0
+
+# --- Market data (Checkpoint 5) ---
+yfinance>=0.2
+
+# --- Eval (Checkpoint 6) ---
+# ragas  # uncomment when starting Checkpoint 6
