@@ -24,14 +24,14 @@ Don't build everything at once. Tag each feature and protect the core.
 ## Checkpoint 1 — Foundations & scaffolding
 **Exit criterion:** repo runs; FastAPI + MongoDB + ChromaDB all reachable with a "hello world".
 
-- [ ] `git init`, monorepo: `/backend` `/frontend` `/ingestion` `/eval` `/notebooks`
-- [ ] FastAPI skeleton with `/health`, Pydantic models, CORS
-- [ ] MongoDB Atlas M0 free cluster connected (Motor async driver)
-- [ ] ChromaDB installed and persisting locally
-- [ ] `.env` + config loader for API keys (Gemini, FRED, Mongo URI)
-- [ ] `LLMClient` abstraction (swap Gemini/Claude behind one interface) — do NOT hard-wire one LLM
-- [ ] **Team: lock the REST API contract** (endpoints + request/response JSON) so front/back move in parallel
-- [ ] React (Vite) + Tailwind app boots, Axios wired to backend
+- [✓] `git init`, monorepo: `/backend` `/frontend` `/ingestion` `/eval` `/notebooks`
+- [✓] FastAPI skeleton with `/health`, Pydantic models, CORS
+- [✓] MongoDB Atlas M0 free cluster connected (Motor async driver)
+- [✓] ChromaDB installed and persisting locally
+- [✓] `.env` + config loader for API keys (Gemini, FRED, Mongo URI)
+- [✓] `LLMClient` abstraction (swap Gemini/Claude behind one interface) — do NOT hard-wire one LLM (Note: Using NVIDIA Nemotron instead of Gemini)
+- [✓] **Team: lock the REST API contract** (endpoints + request/response JSON) so front/back move in parallel
+- [✓] React (Vite) + Tailwind app boots, Axios wired to backend
 
 ## Checkpoint 2 — Corpus & ingestion pipeline
 **Exit criterion:** a raw similarity query returns sensible passages (LLM not involved yet).

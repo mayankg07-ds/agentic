@@ -8,6 +8,7 @@ python-multipart>=0.0.9
 
 # --- Database ---
 motor>=3.5            # async MongoDB driver
+dnspython>=2.6        # required for MongoDB Atlas SRV connection
 
 # --- Vector store ---
 chromadb>=0.5
