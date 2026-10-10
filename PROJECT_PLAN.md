@@ -24,14 +24,14 @@ Don't build everything at once. Tag each feature and protect the core.
 ## Checkpoint 1 — Foundations & scaffolding
 **Exit criterion:** repo runs; FastAPI + MongoDB + ChromaDB all reachable with a "hello world".
 
-- [✓] `git init`, monorepo: `/backend` `/frontend` `/ingestion` `/eval` `/notebooks`
-- [✓] FastAPI skeleton with `/health`, Pydantic models, CORS
-- [✓] MongoDB Atlas M0 free cluster connected (Motor async driver)
-- [✓] ChromaDB installed and persisting locally
-- [✓] `.env` + config loader for API keys (Gemini, FRED, Mongo URI)
-- [✓] `LLMClient` abstraction (swap Gemini/Claude behind one interface) — do NOT hard-wire one LLM (Note: Using NVIDIA Nemotron instead of Gemini)
-- [✓] **Team: lock the REST API contract** (endpoints + request/response JSON) so front/back move in parallel
-- [✓] React (Vite) + Tailwind app boots, Axios wired to backend
+- [x] `git init`, monorepo: `/backend` `/frontend` `/ingestion` `/eval` `/notebooks`
+- [x] FastAPI skeleton with `/health`, Pydantic models, CORS
+- [x] MongoDB Atlas M0 free cluster connected (Motor async driver)
+- [x] ChromaDB installed and persisting locally
+- [x] `.env` + config loader for API keys (Gemini, FRED, Mongo URI)
+- [x] `LLMClient` abstraction (swap Gemini/Claude behind one interface) — do NOT hard-wire one LLM (Note: Using NVIDIA Nemotron instead of Gemini)
+- [x] **Team: lock the REST API contract** (endpoints + request/response JSON) so front/back move in parallel
+- [x] React (Vite) + Tailwind app boots, Axios wired to backend
 
 ## Checkpoint 2 — Corpus & ingestion pipeline
 **Exit criterion:** a raw similarity query returns sensible passages (LLM not involved yet).
@@ -39,11 +39,11 @@ Don't build everything at once. Tag each feature and protect the core.
 - [ ] Collect **free/legal corpus first**: all Berkshire letters (1977–2023), Dalio *Principles* PDF
 - [ ] Copyrighted books (Intelligent Investor, One Up on Wall Street, Security Analysis, etc.)
       kept **local/demo only** — noted for the report, not redistributed
-- [ ] PyMuPDF parser extracting text **+ page numbers**
-- [ ] Chunking (recursive/semantic, ~500–1000 tokens, 10–15% overlap)
-- [ ] Rich metadata per chunk: `book`, `author`, `page`, `chunk_id`, `persona_tag`
-- [ ] Embeddings via local `sentence-transformers` (free) or `text-embedding-004`
-- [ ] Index into ChromaDB; verify with a manual query script
+- [x] PyMuPDF parser extracting text **+ page numbers**
+- [x] Chunking (recursive/semantic, ~500–1000 tokens, 10–15% overlap)
+- [x] Rich metadata per chunk: `book`, `author`, `page`, `chunk_id`, `persona_tag`
+- [x] Embeddings via local `sentence-transformers` (free) or `text-embedding-004`
+- [x] Index into ChromaDB; verify with a manual query script
 - [ ] Target **10+ sources** indexed, weighted toward free-and-legal ones
 
 ## Checkpoint 3 — RAG Q&A with citations (the headline feature)

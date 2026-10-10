@@ -8,7 +8,7 @@ python-multipart>=0.0.9
 
 # --- Database ---
 motor>=3.5            # async MongoDB driver
-dnspython>=2.6        # required for MongoDB Atlas SRV connection
+dnspython>=2.6        # needed for mongodb+srv:// (Atlas) URIs
 
 # --- Vector store ---
 chromadb>=0.5
@@ -17,7 +17,7 @@ chromadb>=0.5
 openai>=1.40
 
 # --- Ingestion (Checkpoint 2) ---
-pymupdf>=1.24
+pymupdf>=1.24.3     # 'import pymupdf' + find_tables
 sentence-transformers>=3.0
 
 # --- Market data (Checkpoint 5) ---

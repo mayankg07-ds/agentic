@@ -32,10 +32,20 @@ class Settings(BaseSettings):
 
     # --- ChromaDB ---
     chroma_persist_dir: str = str(BASE_DIR / "chroma_data")
-    chroma_collection: str = "finance_books"
+    chroma_collection: str = "finance_books"      # shared, persona-tagged corpus
+    chroma_user_collection: str = "user_docs"     # user-uploaded PDFs (scoped by owner)
 
     # --- Embeddings ---
+    # NOTE: all-MiniLM-L6-v2 truncates input at 256 word-pieces, so chunks must stay
+    # small (see chunk_max_chars). For longer chunks switch to e.g.
+    # BAAI/bge-small-en-v1.5 (512 tokens) and raise chunk_max_chars to ~1800.
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+
+    # --- Ingestion ---
+    chunk_max_chars: int = 900        # ~200-230 tokens: safely under MiniLM's 256 limit
+    chunk_overlap_chars: int = 150    # ~15% overlap
+    upload_max_mb: int = 25
+    upload_max_pages: int = 600
 
     @property
     def cors_origins_list(self) -> list[str]:

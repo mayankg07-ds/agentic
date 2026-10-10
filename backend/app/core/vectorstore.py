@@ -1,7 +1,11 @@
 """ChromaDB vector store — local persistent client.
 
-Checkpoint 1: connection + collection handle only.
-Checkpoint 2 adds the ingestion pipeline that fills it.
+Two collections, kept separate so user uploads can never leak into the shared corpus:
+  * `finance_books` — shared corpus (Berkshire letters, etc.), tagged by persona
+  * `user_docs`     — user-uploaded PDFs, scoped by `owner` (session id)
+
+Chunk metadata contract (see API_CONTRACT.md):
+  {book, author, page, chunk_id, persona_tag}  +  {type, doc_id, scope, owner, source_file}
 """
 
 from __future__ import annotations
@@ -22,14 +26,21 @@ def get_chroma_client() -> chromadb.ClientAPI:
     return _client
 
 
-def get_collection() -> Collection:
-    """Main knowledge-base collection. Chunk metadata contract (Checkpoint 2):
-    {book, author, page, chunk_id, persona_tag}."""
-    settings = get_settings()
+def _collection(name: str) -> Collection:
     return get_chroma_client().get_or_create_collection(
-        name=settings.chroma_collection,
+        name=name,
         metadata={"hnsw:space": "cosine"},
     )
+
+
+def get_collection() -> Collection:
+    """Shared knowledge-base collection (persona-tagged books and letters)."""
+    return _collection(get_settings().chroma_collection)
+
+
+def get_user_collection() -> Collection:
+    """User-uploaded documents collection (filter by `owner`)."""
+    return _collection(get_settings().chroma_user_collection)
 
 
 def ping_chroma() -> bool:
