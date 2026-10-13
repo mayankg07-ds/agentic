@@ -36,14 +36,20 @@ class Settings(BaseSettings):
     chroma_user_collection: str = "user_docs"     # user-uploaded PDFs (scoped by owner)
 
     # --- Embeddings ---
-    # NOTE: all-MiniLM-L6-v2 truncates input at 256 word-pieces, so chunks must stay
-    # small (see chunk_max_chars). For longer chunks switch to e.g.
-    # BAAI/bge-small-en-v1.5 (512 tokens) and raise chunk_max_chars to ~1800.
-    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    # bge-small-en-v1.5: 384-dim, 512-token input, much better retrieval than MiniLM-L6.
+    # (MiniLM truncates at 256 tokens; if you switch back, set chunk_max_chars=900.)
+    embedding_model: str = "BAAI/bge-small-en-v1.5"
+    # bge models expect this prefix on QUERIES only (not on documents).
+    embedding_query_prefix: str = "Represent this sentence for searching relevant passages: "
+
+    # --- Retrieval ---
+    retrieve_candidates: int = 20      # per list (dense / keyword) before reranking
+    rerank_enabled: bool = True
+    rerank_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
     # --- Ingestion ---
-    chunk_max_chars: int = 900        # ~200-230 tokens: safely under MiniLM's 256 limit
-    chunk_overlap_chars: int = 150    # ~15% overlap
+    chunk_max_chars: int = 1500       # ~350 tokens, inside bge's 512-token window
+    chunk_overlap_chars: int = 225    # ~15% overlap
     upload_max_mb: int = 25
     upload_max_pages: int = 600
 

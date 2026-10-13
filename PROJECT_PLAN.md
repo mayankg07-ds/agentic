@@ -33,17 +33,19 @@ Don't build everything at once. Tag each feature and protect the core.
 - [x] **Team: lock the REST API contract** (endpoints + request/response JSON) so front/back move in parallel
 - [x] React (Vite) + Tailwind app boots, Axios wired to backend
 
-## Checkpoint 2 — Corpus & ingestion pipeline
+## Checkpoint 2 — Corpus & ingestion pipeline ✅ Done
 **Exit criterion:** a raw similarity query returns sensible passages (LLM not involved yet).
 
 - [ ] Collect **free/legal corpus first**: all Berkshire letters (1977–2023), Dalio *Principles* PDF
+      (so far: 5 Berkshire letters — 1989, 1996, 2001, 2008, 2020)
 - [ ] Copyrighted books (Intelligent Investor, One Up on Wall Street, Security Analysis, etc.)
       kept **local/demo only** — noted for the report, not redistributed
-- [x] PyMuPDF parser extracting text **+ page numbers**
-- [x] Chunking (recursive/semantic, ~500–1000 tokens, 10–15% overlap)
+- [x] PyMuPDF parser extracting text **+ page numbers** (incl. table detection → `[TABLE]` chunks)
+- [x] Chunking (recursive/semantic, ~350 tokens / 1500 chars, ~15% overlap)
 - [x] Rich metadata per chunk: `book`, `author`, `page`, `chunk_id`, `persona_tag`
-- [x] Embeddings via local `sentence-transformers` (free) or `text-embedding-004`
-- [x] Index into ChromaDB; verify with a manual query script
+- [x] Embeddings via local `sentence-transformers` (`BAAI/bge-small-en-v1.5`)
+- [x] Index into ChromaDB; verify with a manual query script (`ingestion/query_test.py`)
+- [x] Hybrid retrieval: dense + keyword (BM25) fusion, cross-encoder rerank (`ms-marco-MiniLM-L-6-v2`)
 - [ ] Target **10+ sources** indexed, weighted toward free-and-legal ones
 
 ## Checkpoint 3 — RAG Q&A with citations (the headline feature)

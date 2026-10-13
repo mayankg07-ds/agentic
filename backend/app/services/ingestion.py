@@ -9,8 +9,8 @@ Design notes
   * Repeated headers/footers (dates, URLs, "1/37", running titles) are stripped.
   * Tables are detected, converted to Markdown and indexed as their own chunks
     (type="table"), split by rows if big, with the header row repeated.
-  * Chunk size defaults to ~900 chars (~220 tokens) because all-MiniLM-L6-v2 silently
-    truncates input at 256 word-pieces. Change `chunk_max_chars` if you change model.
+  * Chunk size comes from settings (default ~1500 chars = ~350 tokens, inside bge-small's
+    512-token window). Lower `chunk_max_chars` to ~900 if you switch to MiniLM (256 tokens).
   * Idempotent: re-ingesting the same doc_id replaces its old chunks.
 """
 
@@ -596,6 +596,12 @@ def ingest_pdf(
                 for c in batch
             ],
         )
+    try:                                   # keep the keyword index in sync
+        from app.services.retrieval import clear_index_cache
+
+        clear_index_cache()
+    except Exception:
+        pass
     return IngestResult(
         doc_id=doc_id,
         book=meta["book"],
